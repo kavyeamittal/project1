@@ -32,7 +32,7 @@ public class StateRenderer {
     }
 
     private void printStateLine(String left, String right) {
-        int spaces = TOTAL_WIDTH - left.length() - right.length();
+        int spaces = TOTAL_WIDTH - 2 - left.length() - right.length();
         if (spaces < 1) {
             spaces = 1;
         }
