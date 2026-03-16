@@ -1,0 +1,333 @@
+Daisy;Farmer;300;500
+Pig;Farmer;1200;800
+Pitchfork;Farmer;400;400
+Grain;Farmer;1100;1100
+Stable;Farmer;500;300
+Threshing;Maid;1300;1000
+Manure;Spreader;600;600
+Shield;Farmer;800;1600
+Potato;Farmer;700;500
+Barrier;Builder;900;1700
+Fence;Farmer;300;1000
+Milk Cow;Farmer;1400;1400
+Barn;Guard;400;900
+Livestock;Sorceress;1500;1200
+Chicken;Farmer;800;700
+Field Marshal;Farmer;1700;1500
+Tractor;Farmer;900;600
+Agro;Architect;1900;1800
+Silo;Operator;500;1100
+Titan Tractor;Farmer;2200;2000
+Beetroot;Farmer;1000;900
+Seed;Farmer;2500;2300
+Goat;Farmer;1000;1000
+Egg-laying Wool-Milk-Pig;Farmer;3000;3000
+3
+2
+3
+2
+1
+2
+2
+1
+3
+1
+2
+1
+1
+2
+1
+2
+1
+1
+1
+2
+2
+2
+1
+1
+Use one of the following commands: select, board, move, flip, block, hand, place, show, yield, state, quit.
+[1] Daisy Farmer (300/500)
+[2] Chicken Farmer (800/700)
+[3] Field Marshal Farmer (1700/1500)
+[4] Agro Architect (1900/1800)
+[5] Barrier Builder (900/1700)
+7 |   |   |   | Y |   |   |   |
+6 |   |   |   |   |   |   |   |
+5 |   |   |   |   |   |   |   |
+4 |   |   |   |   |   |   |   |
+3 |   |   |   |   |   |   |   |
+2 |   |   |   |   |   |   |   |
+1 |   |   |   N*X N   |   |   |
+    A   B   C   D   E   F   G
+Player's Farmer King
+Farmer King moves to D2.
+7 |   |   |   | Y |   |   |   |
+6 |   |   |   |   |   |   |   |
+5 |   |   |   |   |   |   |   |
+4 |   |   |   |   |   |   |   |
+3 |   |   |   |   |   |   |   |
+2 |   |   |   N X N   |   |   |
+1 |   |   |   |   |   |   |   |
+    A   B   C   D   E   F   G
+Player's Farmer King
+7 |   |   |   | Y |   |   |   |
+6 |   |   |   |   |   |   |   |
+5 |   |   |   |   |   |   |   |
+4 |   |   |   |   |   |   |   |
+3 |   |   |   N   N   |   |   |
+2 |   |   |   | X |   |   |   |
+1 |   |   |   |   |   |   |   |
+    A   B   C   D   E   F   G
+<no unit>
+Player places Chicken Farmer on D3.
+7 |   |   |   | Y |   |   |   |
+6 |   |   |   |   |   |   |   |
+5 |   |   |   |   |   |   |   |
+4 |   |   |   |   |   |   |   |
+3 |   |   |   N*x N   |   |   |
+2 |   |   |   | X |   |   |   |
+1 |   |   |   |   |   |   |   |
+    A   B   C   D   E   F   G
+Chicken Farmer (Team Player)
+ATK: 800
+DEF: 700
+[1] Daisy Farmer (300/500)
+[2] Field Marshal Farmer (1700/1500)
+[3] Agro Architect (1900/1800)
+[4] Barrier Builder (900/1700)
+Chicken Farmer moves to D4.
+7 |   |   |   | Y |   |   |   |
+6 |   |   |   |   |   |   |   |
+5 |   |   |   |   |   |   |   |
+4 |   |   |   N x N   |   |   |
+3 |   |   |   |   |   |   |   |
+2 |   |   |   | X |   |   |   |
+1 |   |   |   |   |   |   |   |
+    A   B   C   D   E   F   G
+Chicken Farmer (Team Player)
+ATK: 800
+DEF: 700
+7 |   |   |   | Y |   |   |   |
+6 |   |   |   |   |   |   |   |
+5 |   |   |   |   |   |   |   |
+4 |   |   |   N x N   |   |   |
+3 |   |   |   |   |   |   |   |
+2 |   |   |   | X |   |   |   |
+1 |   |   |   |   |   |   |   |
+    A   B   C   D   E   F   G
+It is Enemy's turn!
+Farmer King moves to D7.
+7 |   |   |   N Y N   |   |   |
+6 |   |   |   |   |   |   |   |
+5 |   |   |   |   |   |   |   |
+4 |   |   |   | x |   |   |   |
+3 |   |   |   |   |   |   |   |
+2 |   |   |   | X |   |   |   |
+1 |   |   |   |   |   |   |   |
+    A   B   C   D   E   F   G
+Enemy's Farmer King
+Enemy places Chicken Farmer on E6.
+7 |   |   |   | Y |   |   |   |
+6 |   |   |   |   N*y N   |   |
+5 |   |   |   |   |   |   |   |
+4 |   |   |   | x |   |   |   |
+3 |   |   |   |   |   |   |   |
+2 |   |   |   | X |   |   |   |
+1 |   |   |   |   |   |   |   |
+    A   B   C   D   E   F   G
+Chicken Farmer (Team Enemy)
+ATK: 800
+DEF: 700
+Chicken Farmer moves to E7.
+7 |   |   |   | Y N y N   |   |
+6 |   |   |   |   |   |   |   |
+5 |   |   |   |   |   |   |   |
+4 |   |   |   | x |   |   |   |
+3 |   |   |   |   |   |   |   |
+2 |   |   |   | X |   |   |   |
+1 |   |   |   |   |   |   |   |
+    A   B   C   D   E   F   G
+Chicken Farmer (Team Enemy)
+ATK: 800
+DEF: 700
+It is Player's turn!
+[1] Daisy Farmer (300/500)
+[2] Field Marshal Farmer (1700/1500)
+[3] Agro Architect (1900/1800)
+[4] Barrier Builder (900/1700)
+[5] Egg-laying Wool-Milk-Pig Farmer (3000/3000)
+7 |   |   |   | Y N y N   |   |
+6 |   |   |   |   |   |   |   |
+5 |   |   |   |   |   |   |   |
+4 |   |   |   |*x |   |   |   |
+3 |   |   |   |   |   |   |   |
+2 |   |   |   |*X |   |   |   |
+1 |   |   |   |   |   |   |   |
+    A   B   C   D   E   F   G
+??? (Team Enemy)
+ATK: ???
+DEF: ???
+7 |   |   |   | Y | y |   |   |
+6 |   |   |   |   |   |   |   |
+5 |   |   |   |   |   |   |   |
+4 |   |   |   N*x N   |   |   |
+3 |   |   |   |   |   |   |   |
+2 |   |   |   |*X |   |   |   |
+1 |   |   |   |   |   |   |   |
+    A   B   C   D   E   F   G
+Chicken Farmer (Team Player)
+ATK: 800
+DEF: 700
+Chicken Farmer moves to D5.
+7 |   |   |   | Y | y |   |   |
+6 |   |   |   |   |   |   |   |
+5 |   |   |   N x N   |   |   |
+4 |   |   |   |   |   |   |   |
+3 |   |   |   |   |   |   |   |
+2 |   |   |   |*X |   |   |   |
+1 |   |   |   |   |   |   |   |
+    A   B   C   D   E   F   G
+Chicken Farmer (Team Player)
+ATK: 800
+DEF: 700
+7 |   |   |   | Y | y |   |   |
+6 |   |   |   |   |   |   |   |
+5 |   |   |   | x |   |   |   |
+4 |   |   |   |   |   |   |   |
+3 |   |   |   |   |   |   |   |
+2 |   |   |   N*X N   |   |   |
+1 |   |   |   |   |   |   |   |
+    A   B   C   D   E   F   G
+Player's Farmer King
+Farmer King moves to D3.
+7 |   |   |   | Y | y |   |   |
+6 |   |   |   |   |   |   |   |
+5 |   |   |   | x |   |   |   |
+4 |   |   |   |   |   |   |   |
+3 |   |   |   N X N   |   |   |
+2 |   |   |   |   |   |   |   |
+1 |   |   |   |   |   |   |   |
+    A   B   C   D   E   F   G
+Player's Farmer King
+Player discarded Daisy Farmer (300/500).
+It is Enemy's turn!
+Farmer King moves to D7.
+7 |   |   |   N Y N*y |   |   |
+6 |   |   |   |   |   |   |   |
+5 |   |   |   | x |   |   |   |
+4 |   |   |   |   |   |   |   |
+3 |   |   |   | X |   |   |   |
+2 |   |   |   |   |   |   |   |
+1 |   |   |   |   |   |   |   |
+    A   B   C   D   E   F   G
+Enemy's Farmer King
+Enemy places Field Marshal Farmer on D6.
+7 |   |   |   | Y |*y |   |   |
+6 |   |   |   N*y N   |   |   |
+5 |   |   |   | x |   |   |   |
+4 |   |   |   |   |   |   |   |
+3 |   |   |   | X |   |   |   |
+2 |   |   |   |   |   |   |   |
+1 |   |   |   |   |   |   |   |
+    A   B   C   D   E   F   G
+Field Marshal Farmer (Team Enemy)
+ATK: 1700
+DEF: 1500
+Field Marshal Farmer (1700/1500) attacks ??? on D5!
+Field Marshal Farmer (1700/1500) was flipped on D6!
+Chicken Farmer (800/700) was flipped on D5!
+Chicken Farmer was eliminated!
+Player takes 900 damage!
+Field Marshal Farmer moves to D5.
+7 |   |   |   | Y |*y |   |   |
+6 |   |   |   |   |   |   |   |
+5 |   |   |   N y N   |   |   |
+4 |   |   |   |   |   |   |   |
+3 |   |   |   | X |   |   |   |
+2 |   |   |   |   |   |   |   |
+1 |   |   |   |   |   |   |   |
+    A   B   C   D   E   F   G
+Field Marshal Farmer (Team Enemy)
+ATK: 1700
+DEF: 1500
+It is Player's turn!
+[1] Field Marshal Farmer (1700/1500)
+[2] Agro Architect (1900/1800)
+[3] Barrier Builder (900/1700)
+[4] Egg-laying Wool-Milk-Pig Farmer (3000/3000)
+[5] Fence Farmer (300/1000)
+7 |   |   |   | Y N y N   |   |
+6 |   |   |   |   |   |   |   |
+5 |   |   |   | y |   |   |   |
+4 |   |   |   |   |   |   |   |
+3 |   |   |   |*X |   |   |   |
+2 |   |   |   |   |   |   |   |
+1 |   |   |   |   |   |   |   |
+    A   B   C   D   E   F   G
+??? (Team Enemy)
+ATK: ???
+DEF: ???
+  Player                    Enemy
+  7100/8000 LP       8000/8000 LP
+  DC: 33/40             DC: 34/40
+  BC: 0/5                 BC: 2/5
+7 |   |   |   | Y N y N   |   |
+6 |   |   |   |   |   |   |   |
+5 |   |   |   | y |   |   |   |
+4 |   |   |   |   |   |   |   |
+3 |   |   |   |*X |   |   |   |
+2 |   |   |   |   |   |   |   |
+1 |   |   |   |   |   |   |   |
+    A   B   C   D   E   F   G
+??? (Team Enemy)
+ATK: ???
+DEF: ???
+7 |   |   |   | Y | y |   |   |
+6 |   |   |   |   |   |   |   |
+5 |   |   |   N y N   |   |   |
+4 |   |   |   |   |   |   |   |
+3 |   |   |   |*X |   |   |   |
+2 |   |   |   |   |   |   |   |
+1 |   |   |   |   |   |   |   |
+    A   B   C   D   E   F   G
+Field Marshal Farmer (Team Enemy)
+ATK: 1700
+DEF: 1500
+7 |   |   |   | Y | y |   |   |
+6 |   |   |   |   |   |   |   |
+5 |   |   |   | y |   |   |   |
+4 |   |   |   N   N   |   |   |
+3 |   |   |   |*X |   |   |   |
+2 |   |   |   |   |   |   |   |
+1 |   |   |   |   |   |   |   |
+    A   B   C   D   E   F   G
+<no unit>
+Player places Egg-laying Wool-Milk-Pig Farmer on D4.
+7 |   |   |   | Y | y |   |   |
+6 |   |   |   |   |   |   |   |
+5 |   |   |   | y |   |   |   |
+4 |   |   |   N*x N   |   |   |
+3 |   |   |   |*X |   |   |   |
+2 |   |   |   |   |   |   |   |
+1 |   |   |   |   |   |   |   |
+    A   B   C   D   E   F   G
+Egg-laying Wool-Milk-Pig Farmer (Team Player)
+ATK: 3000
+DEF: 3000
+Egg-laying Wool-Milk-Pig Farmer (3000/3000) attacks Field Marshal Farmer (1700/1500) on D5!
+Egg-laying Wool-Milk-Pig Farmer (3000/3000) was flipped on D4!
+Field Marshal Farmer was eliminated!
+Enemy takes 1300 damage!
+Egg-laying Wool-Milk-Pig Farmer moves to D5.
+7 |   |   |   | Y | y |   |   |
+6 |   |   |   |   |   |   |   |
+5 |   |   |   N x N   |   |   |
+4 |   |   |   |   |   |   |   |
+3 |   |   |   |*X |   |   |   |
+2 |   |   |   |   |   |   |   |
+1 |   |   |   |   |   |   |   |
+    A   B   C   D   E   F   G
+Egg-laying Wool-Milk-Pig Farmer (Team Player)
+ATK: 3000
+DEF: 3000

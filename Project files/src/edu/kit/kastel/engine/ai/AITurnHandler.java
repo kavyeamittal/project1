@@ -100,36 +100,41 @@ public class AITurnHandler {
     }
 
     private void moveAiUnits(AILogic ai) throws GameException {
-        Position[] unitPositions = getUnitPositions(aiPlayer);
-        int[][] scores = new int[unitPositions.length][6]; // (oben, rechts, unten, links, blockieren, en place)
-        int highestScoreSum = Integer.MIN_VALUE;
-        int highestScoreUnitIndex = -1;
-
-        for (int i = 0; i < unitPositions.length; i++) {
-            scores[i] = ai.getMoveScores(unitPositions[i]);
-            int sum = 0;
-            for (int score : scores[i]) {
-                sum += score;
+        while (true) {
+            Position[] unitPositions = getUnitPositions(aiPlayer);
+            if (unitPositions.length == 0) {
+                return;
             }
-            if (sum > highestScoreSum) {
-                highestScoreUnitIndex = i;
-                highestScoreSum = sum;
-            }
-        }
+            int[][] scores = new int[unitPositions.length][6]; // (oben, rechts, unten, links, blockieren, en place)
+            int highestScoreSum = Integer.MIN_VALUE;
+            int highestScoreUnitIndex = -1;
 
-        if (highestScoreUnitIndex == -1) {
-            return;
+            for (int i = 0; i < unitPositions.length; i++) {
+                scores[i] = ai.getMoveScores(unitPositions[i]);
+                int sum = 0;
+                for (int score : scores[i]) {
+                    sum += score;
+                }
+                if (sum > highestScoreSum) {
+                    highestScoreUnitIndex = i;
+                    highestScoreSum = sum;
+                }
+            }
+
+            if (highestScoreUnitIndex == -1) {
+                return;
+            }
+            Position unitPos = unitPositions[highestScoreUnitIndex];
+            Position target = ai.chooseUnitMove(scores[highestScoreUnitIndex], unitPos);
+            game.select(unitPos);
+            if (target == null) {
+                game.blockSelected();
+            } else {
+                game.moveSelectedTo(target);
+            }
+            printBoard();
+            handleShow(game);
         }
-        Position unitPos = unitPositions[highestScoreUnitIndex];
-        Position target = ai.chooseUnitMove(scores[highestScoreUnitIndex], unitPos);
-        game.select(unitPositions[highestScoreUnitIndex]);
-        if (target == null) {
-            game.blockSelected();
-        } else {
-            game.moveSelectedTo(target);
-        }
-        printBoard();
-        handleShow(game);
     }
 
     private void discardAiUnit(AILogic ai) {
@@ -145,7 +150,7 @@ public class AITurnHandler {
         for (int row = 0; row < 7; row++) {
             for (int col = 0; col < 7; col++) {
                 Occupant occ = board.getAt(row, col);
-                if (occ instanceof UnitOnBoard u && u.getOwner() == owner) {
+                if (occ instanceof UnitOnBoard u && u.getOwner() == owner && !u.hasMovedThisTurn()) {
                     positions.add(Position.of(col, row));
                 }
             }
