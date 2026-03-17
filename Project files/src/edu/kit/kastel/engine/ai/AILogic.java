@@ -386,6 +386,16 @@ public class AILogic {
      * @return the target position, null for blockade, or unitPosition for en-place.
      */
     public Position chooseUnitMove(int[] scores, Position unitPosition) {
+        boolean hasPositiveMovement = false;
+        for (int i : new int[]{0, 1, 2, 3, 5}) {
+            if (scores[i] > 0) {
+                hasPositiveMovement = true;
+                break;
+            }
+        }
+        if (!hasPositiveMovement) {
+            return null;
+        }
         int chosen = rnd.weightedRandomIndex(scores);
         if (chosen == 4) {
             return null;
