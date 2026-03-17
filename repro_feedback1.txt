@@ -1,0 +1,156 @@
+Daisy;Farmer;300;500
+Manure;Spreader;600;600
+Tractor;Farmer;900;600
+Pig;Farmer;1200;800
+Egg-laying Wool-Milk-Pig;Farmer;3000;3000
+10
+10
+10
+5
+5
+Use one of the following commands: select, board, move, flip, block, hand, place, show, yield, state, quit.
+7 |   |   |   | Y |   |   |   |
+6 |   |   |   |   |   |   |   |
+5 |   |   |   |   |   |   |   |
+4 |   |   |   |   |   |   |   |
+3 |   |   |   |   |   |   |   |
+2 |   |   |   |   |   |   |   |
+1 |   |   |   N*X N   |   |   |
+    A   B   C   D   E   F   G
+Player's Farmer King
+Farmer King moves to D2.
+7 |   |   |   | Y |   |   |   |
+6 |   |   |   |   |   |   |   |
+5 |   |   |   |   |   |   |   |
+4 |   |   |   |   |   |   |   |
+3 |   |   |   |   |   |   |   |
+2 |   |   |   N X N   |   |   |
+1 |   |   |   |   |   |   |   |
+    A   B   C   D   E   F   G
+Player's Farmer King
+7 |   |   |   | Y |   |   |   |
+6 |   |   |   |   |   |   |   |
+5 |   |   |   |   |   |   |   |
+4 |   |   |   |   |   |   |   |
+3 |   |   |   |   |   |   |   |
+2 |   |   |   | X |   |   |   |
+1 |   |   |   N   N   |   |   |
+    A   B   C   D   E   F   G
+<no unit>
+Player places Egg-laying Wool-Milk-Pig Farmer on D1.
+7 |   |   |   | Y |   |   |   |
+6 |   |   |   |   |   |   |   |
+5 |   |   |   |   |   |   |   |
+4 |   |   |   |   |   |   |   |
+3 |   |   |   |   |   |   |   |
+2 |   |   |   | X |   |   |   |
+1 |   |   |   N*x N   |   |   |
+    A   B   C   D   E   F   G
+Egg-laying Wool-Milk-Pig Farmer (Team Player)
+ATK: 3000
+DEF: 3000
+It is Enemy's turn!
+Farmer King moves to D7.
+7 |   |   |   N Y N   |   |   |
+6 |   |   |   |   |   |   |   |
+5 |   |   |   |   |   |   |   |
+4 |   |   |   |   |   |   |   |
+3 |   |   |   |   |   |   |   |
+2 |   |   |   | X |   |   |   |
+1 |   |   |   | x |   |   |   |
+    A   B   C   D   E   F   G
+Enemy's Farmer King
+Enemy places Tractor Farmer on C6.
+7 |   |   |   | Y |   |   |   |
+6 |   |   N*y N   |   |   |   |
+5 |   |   |   |   |   |   |   |
+4 |   |   |   |   |   |   |   |
+3 |   |   |   |   |   |   |   |
+2 |   |   |   | X |   |   |   |
+1 |   |   |   | x |   |   |   |
+    A   B   C   D   E   F   G
+Tractor Farmer (Team Enemy)
+ATK: 900
+DEF: 600
+Tractor Farmer moves to B6.
+7 |   |   |   | Y |   |   |   |
+6 |   N y N   |   |   |   |   |
+5 |   |   |   |   |   |   |   |
+4 |   |   |   |   |   |   |   |
+3 |   |   |   |   |   |   |   |
+2 |   |   |   | X |   |   |   |
+1 |   |   |   | x |   |   |   |
+    A   B   C   D   E   F   G
+Tractor Farmer (Team Enemy)
+ATK: 900
+DEF: 600
+It is Player's turn!
+7 |   |   |   | Y |   |   |   |
+6 |   | y |   |   |   |   |   |
+5 |   |   |   |   |   |   |   |
+4 |   |   |   |   |   |   |   |
+3 |   |   |   |   |   |   |   |
+2 |   |   |   |*X |   |   |   |
+1 |   |   |   |*x N   N   |   |
+    A   B   C   D   E   F   G
+<no unit>
+Player places Daisy Farmer on E1.
+7 |   |   |   | Y |   |   |   |
+6 |   | y |   |   |   |   |   |
+5 |   |   |   |   |   |   |   |
+4 |   |   |   |   |   |   |   |
+3 |   |   |   |   |   |   |   |
+2 |   |   |   |*X |   |   |   |
+1 |   |   |   |*x N*x N   |   |
+    A   B   C   D   E   F   G
+Daisy Farmer (Team Player)
+ATK: 300
+DEF: 500
+It is Enemy's turn!
+Farmer King moves to C7.
+7 |   |   N Y N   |   |   |   |
+6 |   |*y |   |   |   |   |   |
+5 |   |   |   |   |   |   |   |
+4 |   |   |   |   |   |   |   |
+3 |   |   |   |   |   |   |   |
+2 |   |   |   | X |   |   |   |
+1 |   |   |   | x | x |   |   |
+    A   B   C   D   E   F   G
+Enemy's Farmer King
+Enemy places Pig Farmer on D6.
+7 |   |   | Y |   |   |   |   |
+6 |   |*y |   N*y N   |   |   |
+5 |   |   |   |   |   |   |   |
+4 |   |   |   |   |   |   |   |
+3 |   |   |   |   |   |   |   |
+2 |   |   |   | X |   |   |   |
+1 |   |   |   | x | x |   |   |
+    A   B   C   D   E   F   G
+Pig Farmer (Team Enemy)
+ATK: 1200
+DEF: 800
+Tractor Farmer moves to A6.
+7 |   |   | Y |   |   |   |   |
+6 N y N   |   |*y |   |   |   |
+5 |   |   |   |   |   |   |   |
+4 |   |   |   |   |   |   |   |
+3 |   |   |   |   |   |   |   |
+2 |   |   |   | X |   |   |   |
+1 |   |   |   | x | x |   |   |
+    A   B   C   D   E   F   G
+Tractor Farmer (Team Enemy)
+ATK: 900
+DEF: 600
+Pig Farmer moves to D5.
+7 |   |   | Y |   |   |   |   |
+6 | y |   |   |   |   |   |   |
+5 |   |   |   N y N   |   |   |
+4 |   |   |   |   |   |   |   |
+3 |   |   |   |   |   |   |   |
+2 |   |   |   | X |   |   |   |
+1 |   |   |   | x | x |   |   |
+    A   B   C   D   E   F   G
+Pig Farmer (Team Enemy)
+ATK: 1200
+DEF: 800
+It is Player's turn!

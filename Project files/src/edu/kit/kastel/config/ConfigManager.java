@@ -1,5 +1,6 @@
 package edu.kit.kastel.config;
 
+import edu.kit.kastel.cli.BoardRenderer;
 import edu.kit.kastel.exceptions.GameException;
 import edu.kit.kastel.io.ArgsParser;
 import edu.kit.kastel.io.DeckLoader;
@@ -69,8 +70,7 @@ public class ConfigManager {
      */
     private void loadFilesAndCreateConfig() throws GameException {
         long seed = args.seed();
-
-
+        BoardRenderer.resetToDefaultSymbols();
         if (args.board() != null) {
             processBoardFile(args.board());
         }
@@ -124,6 +124,7 @@ public class ConfigManager {
         if (lines.size() != EXPECTED_BOARD_LINES || lines.getFirst().length() != EXPECTED_BOARD_LENGTH) {
             throw new GameException(ERR_BOARD_FORMAT);
         }
+        BoardRenderer.setCustomSymbols(lines.getFirst());
     }
 
     /**
