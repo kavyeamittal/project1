@@ -12,6 +12,17 @@ import edu.kit.kastel.model.UnitOnBoard;
  */
 public final class ShowHandler {
 
+    private static final String MSG_NO_UNIT = "<no unit>";
+    private static final String MSG_KING_SUFFIX = "'s Farmer King";
+    private static final String MSG_UNKNOWN_TEAM = "??? (Team ";
+    private static final String MSG_SUFFIX_PAREN = ")";
+    private static final String MSG_UNKNOWN_ATK = "ATK: ???";
+    private static final String MSG_UNKNOWN_DEF = "DEF: ???";
+    private static final String MSG_TEAM = " (Team ";
+    private static final String MSG_ATK = "ATK: ";
+    private static final String MSG_DEF = "DEF: ";
+    private static final String ERR_UNKNOWN = "ERROR: Unknown Command.";
+
     private ShowHandler() {
     }
 
@@ -22,24 +33,24 @@ public final class ShowHandler {
      */
     public static void handleShow(Occupant occupant, Player currentPlayer) {
         switch (occupant) {
-            case null -> System.out.println("<no unit>");
-            case FarmerKing king -> System.out.println(king.owner().getName() + "'s Farmer King");
+            case null -> System.out.println(MSG_NO_UNIT);
+            case FarmerKing king -> System.out.println(king.owner().getName() + MSG_KING_SUFFIX);
             case UnitOnBoard unitOnBoard -> {
                 boolean isOwn = unitOnBoard.getOwner() == currentPlayer;
                 boolean visible = isOwn || unitOnBoard.isFlipped();
 
                 if (!visible) {
-                    System.out.println("??? (Team " + unitOnBoard.getOwner().getName() + ")");
-                    System.out.println("ATK: ???");
-                    System.out.println("DEF: ???");
+                    System.out.println(MSG_UNKNOWN_TEAM + unitOnBoard.getOwner().getName() + MSG_SUFFIX_PAREN);
+                    System.out.println(MSG_UNKNOWN_ATK);
+                    System.out.println(MSG_UNKNOWN_DEF);
                 } else {
                     Unit unit = unitOnBoard.getUnit();
-                    System.out.println(unit.getDisplayName() + " (Team " + unitOnBoard.getOwner().getName() + ")");
-                    System.out.println("ATK: " + unit.getAttack());
-                    System.out.println("DEF: " + unit.getDefence());
+                    System.out.println(unit.getDisplayName() + MSG_TEAM + unitOnBoard.getOwner().getName() + MSG_SUFFIX_PAREN);
+                    System.out.println(MSG_ATK + unit.getAttack());
+                    System.out.println(MSG_DEF + unit.getDefence());
                 }
             }
-            default -> System.out.println("ERROR: Unknown Command.");
+            default -> System.out.println(ERR_UNKNOWN);
         }
     }
 }

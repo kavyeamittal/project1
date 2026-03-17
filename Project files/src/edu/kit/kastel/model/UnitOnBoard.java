@@ -84,6 +84,13 @@ public final class UnitOnBoard implements Occupant {
     }
 
     /**
+     * Setter to set the blocked value.
+     * @param blocked represents the boolean of whether the unit is blocked.
+     */
+    public void setBlocked(boolean blocked) {
+        this.blocked = blocked;
+    }
+    /**
      * Method to mark a unit as having moved this turn.
      */
     public void markMoved() {

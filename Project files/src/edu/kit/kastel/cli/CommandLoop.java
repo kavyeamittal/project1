@@ -18,6 +18,42 @@ public class CommandLoop {
     private static final String COMMAND_LINE = "Use one of the following commands: select, board, move, flip, block, "
             + "hand, place, show, yield, state, quit.";
 
+    private static final String CMD_QUIT = "quit";
+    private static final String CMD_SELECT = "select";
+    private static final String CMD_BOARD = "board";
+    private static final String CMD_MOVE = "move";
+    private static final String CMD_FLIP = "flip";
+    private static final String CMD_BLOCK = "block";
+    private static final String CMD_SHOW = "show";
+    private static final String CMD_HAND = "hand";
+    private static final String CMD_PLACE = "place";
+    private static final String CMD_STATE = "state";
+    private static final String CMD_YIELD = "yield";
+
+    private static final String ERR_UNKNOWN_CMD = "ERROR: Unknown command.";
+    private static final String ERR_WRONG_PARAMS = "ERROR: Wrong number of parameters.";
+    private static final String ERR_QUIT_ARGS = "ERROR: quit command cannot take arguments.";
+    private static final String ERR_BOARD_ARGS = "ERROR: board command cannot take arguments.";
+    private static final String ERR_NO_SELECT = "ERROR: No field selected.";
+    private static final String ERR_HAND_ARGS = "ERROR: Hand cannot take more arguments.";
+    private static final String ERR_INVALID_INDEX = "ERROR: Invalid Index: ";
+    private static final String ERR_STATE_ARGS = "ERROR: state command cannot take arguments.";
+    private static final String ERR_INVALID_DISCARD = "ERROR: Invalid discard index.";
+    private static final String REGEX_WHITESPACE = "\\s+";
+    private static final String PAREN_OPEN = " (";
+    private static final String SLASH = "/";
+    private static final String PAREN_CLOSE = ")";
+    private static final String FLIPPED_ON = ") was flipped on ";
+    private static final String EXCLAMATION = "!";
+    private static final String BLOCKS_MSG = ") blocks!";
+    private static final String BRACKET_OPEN = "[";
+    private static final String BRACKET_CLOSE = "] ";
+    private static final int CMD_INDEX = 0;
+    private static final int ARG_INDEX = 1;
+    private static final int EXPECTED_LEN_NO_ARGS = 1;
+    private static final int EXPECTED_LEN_ONE_ARG = 2;
+    private static final int NO_DISCARD_DEFAULT = -1;
+    private static final int INDEX_OFFSET = 1;
     /**
      * Method to run the game itself.
      *
@@ -34,35 +70,46 @@ public class CommandLoop {
                 if (line.isEmpty()) {
                     continue;
                 }
-                String[] parts = line.split("\\s+");
-                switch (parts[0].toLowerCase()) {
-                    case "quit" -> {
-                        return;
+                String[] parts = line.split(REGEX_WHITESPACE);
+                switch (parts[CMD_INDEX].toLowerCase()) {
+                    case CMD_QUIT -> {
+                        if (parts.length != EXPECTED_LEN_NO_ARGS) {
+                            System.out.println(ERR_QUIT_ARGS);
+                        } else {
+                            return;
+                        }
+
                     }
-                    case "select" -> handleSelect(game, parts);
-                    case "board" -> printBoard(game);
-                    case "move" -> handleMove(game, parts);
-                    case "flip" -> handleFlip(game);
-                    case "block" -> handleBlock(game, parts);
-                    case "show" -> handleShow(game);
-                    case "hand" -> handleHand(game);
-                    case "place" -> handlePlace(game, parts);
-                    case "state" -> handleState(game);
-                    case "yield" -> handleYield(game, parts);
-                    default -> System.out.println("ERROR: Unknown command.");
+                    case CMD_SELECT -> handleSelect(game, parts);
+                    case CMD_BOARD -> {
+                        if (parts.length != EXPECTED_LEN_NO_ARGS) {
+                            System.out.println(ERR_BOARD_ARGS);
+                        } else {
+                            printBoard(game);
+                        }
+                    }
+                    case CMD_MOVE -> handleMove(game, parts);
+                    case CMD_FLIP -> handleFlip(game);
+                    case CMD_BLOCK -> handleBlock(game, parts);
+                    case CMD_SHOW -> handleShow(game);
+                    case CMD_HAND -> handleHand(game, parts);
+                    case CMD_PLACE -> handlePlace(game, parts);
+                    case CMD_STATE -> handleState(game, parts);
+                    case CMD_YIELD -> handleYield(game, parts);
+                    default -> System.out.println(ERR_UNKNOWN_CMD);
                 }
             }
         }
     }
 
     private void handleSelect(Game game, String[] parts) {
-        if (parts.length != 2) {
-            System.out.println("ERROR: Wrong number of parameters.");
+        if (parts.length != EXPECTED_LEN_ONE_ARG) {
+            System.out.println(ERR_WRONG_PARAMS);
             return;
         }
 
         try {
-            Position pos = Position.parse(parts[1].toUpperCase());
+            Position pos = Position.parse(parts[ARG_INDEX].toUpperCase());
             game.select(pos);
             printBoard(game);
             handleShow(game);
@@ -73,13 +120,13 @@ public class CommandLoop {
     }
 
     private void handleMove(Game game, String[] parts) {
-        if (parts.length != 2) {
-            System.out.println("ERROR: Wrong number of parameters.");
+        if (parts.length != EXPECTED_LEN_ONE_ARG) {
+            System.out.println(ERR_WRONG_PARAMS);
             return;
         }
 
         try {
-            Position pos = Position.parse(parts[1].toUpperCase());
+            Position pos = Position.parse(parts[ARG_INDEX].toUpperCase());
             game.moveSelectedTo(pos);
             printBoard(game);
             handleShow(game);
@@ -94,9 +141,9 @@ public class CommandLoop {
 
             UnitOnBoard unit = (UnitOnBoard) game.getPos();
             System.out.println(unit.getUnit().getDisplayName()
-                    + " (" + unit.getUnit().getAttack() + "/"
+                    + PAREN_OPEN + unit.getUnit().getAttack() + SLASH
                     + unit.getUnit().getDefence()
-                    + ") was flipped on " + game.getSelectedPos() + "!");
+                    + FLIPPED_ON + game.getSelectedPos() + EXCLAMATION);
 
             BoardRenderer.printBoard(game.getBoard(), game.isVerbose(), game.getCurrentPlayer(), game.getSelectedPos());
             handleShow(game);
@@ -106,8 +153,8 @@ public class CommandLoop {
     }
 
     private void handleBlock(Game game, String[] parts) {
-        if (parts.length != 1) {
-            System.out.println("ERROR: Wrong number of parameters.");
+        if (parts.length != EXPECTED_LEN_NO_ARGS) {
+            System.out.println(ERR_WRONG_PARAMS);
             return;
         }
 
@@ -115,7 +162,7 @@ public class CommandLoop {
             game.blockSelected();
             UnitOnBoard unitOnBoard = (UnitOnBoard) game.getPos();
             System.out.println(unitOnBoard.getUnit().getDisplayName()
-                    + " (" + game.getSelectedPos() + ") blocks!");
+                    + PAREN_OPEN + game.getSelectedPos() + BLOCKS_MSG);
             printBoard(game);
             handleShow(game);
         } catch (GameException e) {
@@ -125,31 +172,39 @@ public class CommandLoop {
 
 
     private void handleShow(Game game) {
+        if (game.getSelectedPos() == null) {
+            System.out.println(ERR_NO_SELECT);
+            return;
+        }
         ShowHandler.handleShow(game.getPos(), game.getCurrentPlayer());
     }
 
-    private void handleHand(Game game) {
+    private void handleHand(Game game, String[] parts) {
+        if (parts.length != EXPECTED_LEN_NO_ARGS) {
+            System.out.println(ERR_HAND_ARGS);
+            return;
+        }
         var hand = game.getCurrentPlayer().getHand();
-        for (int i = 0; i < hand.size(); i++) {
+        for (int i = CMD_INDEX; i < hand.size(); i++) {
             Unit unit = hand.get(i);
-            System.out.println("[" + (i + 1) + "] "
+            System.out.println(BRACKET_OPEN + (i + INDEX_OFFSET) + BRACKET_CLOSE
                     + unit.getDisplayName()
-                    + " (" + unit.getAttack() + "/" + unit.getDefence() + ")");
+                    + PAREN_OPEN + unit.getAttack() + SLASH + unit.getDefence() + PAREN_CLOSE);
         }
     }
 
     private void handlePlace(Game game, String[] parts) {
-        if (parts.length != 2) {
-            System.out.println("ERROR: Wrong number of parameters.");
+        if (parts.length != EXPECTED_LEN_ONE_ARG) {
+            System.out.println(ERR_WRONG_PARAMS);
             return;
         }
 
-        int[] indices = new int[parts.length - 1];
-        for (int i = 0; i < indices.length; i++) {
+        int[] indices = new int[parts.length - INDEX_OFFSET];
+        for (int i = CMD_INDEX; i < indices.length; i++) {
             try {
-                indices[i] = Integer.parseInt(parts[i + 1]);
+                indices[i] = Integer.parseInt(parts[i + INDEX_OFFSET]);
             } catch (NumberFormatException e) {
-                System.out.println("ERROR: Invalid Index: " + parts[i + 1]);
+                System.out.println(ERR_INVALID_INDEX + parts[i + INDEX_OFFSET]);
                 return;
             }
         }
@@ -162,10 +217,16 @@ public class CommandLoop {
         }
     }
 
-    private void handleState(Game game) {
+    private void handleState(Game game, String[] parts) {
+        if (parts.length != EXPECTED_LEN_NO_ARGS) {
+            System.out.println(ERR_STATE_ARGS);
+            return;
+        }
         game.printState();
         printBoard(game);
-        handleShow(game);
+        if (game.getSelectedPos() != null) {
+            handleShow(game);
+        }
     }
 
     private void printBoard(Game game) {
@@ -173,16 +234,16 @@ public class CommandLoop {
     }
 
     private void handleYield(Game game, String[] parts) {
-        if (parts.length > 2) {
-            System.out.println("ERROR: Wrong number of parameters.");
+        if (parts.length > EXPECTED_LEN_ONE_ARG) {
+            System.out.println(ERR_WRONG_PARAMS);
             return;
         }
-        int discardIndex = -1;
-        if (parts.length == 2) {
+        int discardIndex = NO_DISCARD_DEFAULT;
+        if (parts.length == EXPECTED_LEN_ONE_ARG) {
             try {
-                discardIndex = Integer.parseInt(parts[1]);
+                discardIndex = Integer.parseInt(parts[ARG_INDEX]);
             } catch (NumberFormatException e) {
-                System.out.println("ERROR: Invalid discard index.");
+                System.out.println(ERR_INVALID_DISCARD);
                 return;
             }
         }

@@ -1,5 +1,7 @@
 package edu.kit.kastel.model;
 
+import edu.kit.kastel.exceptions.GameException;
+
 /**
  * Represents a position on the 7x7 game board.
  *
@@ -37,20 +39,19 @@ public final class Position {
      *
      * @param s the position string to parse.
      * @return the parsed Position.
-     * @throws IllegalArgumentException if the string is null, wrong length,
-     *                                  or contains an invalid column or row character.
+     * @throws GameException if the string is null, wrong length, or contains an invalid column or row character.
      */
-    public static Position parse(String s) {
+    public static Position parse(String s) throws GameException {
         if (s == null || s.trim().length() != 2) {
-            throw new IllegalArgumentException("Invalid position string: " + s);
+            throw new GameException("ERROR: Invalid position string: " + s);
         }
         char c = s.charAt(0);
         char r = s.charAt(1);
         if (c < 'A' || c > 'G') {
-            throw new IllegalArgumentException("Invalid position string: " + s);
+            throw new GameException("ERROR: Invalid position string: " + s);
         }
         if (r < '1' || r > '7') {
-            throw new IllegalArgumentException("Invalid position string: " + s);
+            throw new GameException("ERROR: Invalid position string: " + s);
         }
         return new Position(c - 'A', r - '1');
     }
