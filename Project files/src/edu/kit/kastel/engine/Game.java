@@ -265,6 +265,9 @@ public class Game {
         System.out.println("It is " + currentPlayer.getName() + "'s turn!");
         if (currentPlayer instanceof AIPlayer) {
             new AITurnHandler(this, board, currentPlayer, waitingPlayer, rnd, verbose).runAiTurn();
+            if (gameOver) {
+                return;
+            }
             yieldTurn(-1);
         }
     }

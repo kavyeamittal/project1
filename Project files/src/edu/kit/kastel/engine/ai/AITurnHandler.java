@@ -59,8 +59,17 @@ public class AITurnHandler {
     public void runAiTurn() throws GameException {
         AILogic ai = new AILogic(board, aiPlayer, humanPlayer, rnd);
         moveAiKing(ai);
+        if (game.isGameOver()) {
+            return;
+        }
         placeAiUnit(ai);
+        if (game.isGameOver()) {
+            return;
+        }
         moveAiUnits(ai);
+        if (game.isGameOver()) {
+            return;
+        }
         if (aiPlayer.getHand().size() >= 5) {
             discardAiUnit(ai);
         }
@@ -101,6 +110,9 @@ public class AITurnHandler {
 
     private void moveAiUnits(AILogic ai) throws GameException {
         while (true) {
+            if (game.isGameOver()) {
+                return;
+            }
             Position[] unitPositions = getUnitPositions(aiPlayer);
             if (unitPositions.length == 0) {
                 return;
@@ -132,6 +144,9 @@ public class AITurnHandler {
             }
             printBoard();
             handleShow(game);
+            if (game.isGameOver()) {
+                return;
+            }
         }
 
     }
