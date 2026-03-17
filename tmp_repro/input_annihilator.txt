@@ -1,0 +1,12 @@
+select D1
+move D2
+yield 1
+select D2
+move D3
+yield 1
+select D3
+move D4
+yield 1
+select D4
+move D5
+yield 1

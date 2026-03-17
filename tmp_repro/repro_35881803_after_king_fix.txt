@@ -1,0 +1,143 @@
+Synchronized;Soles;600;300
+Symbiotic;Souls;300;600
+Conspiratorial;Convert;150;400
+Conditional;Clown;300;500
+Prime;Partner;300;50
+Powerful;Puncher;700;100
+6
+7
+6
+6
+6
+9
+Use one of the following commands: select, board, move, flip, block, hand, place, show, yield, state, quit.
+[1] Conspiratorial Convert (150/400)
+[2] Symbiotic Souls (300/600)
+[3] Prime Partner (300/50)
+[4] Conditional Clown (300/500)
+[5] Powerful Puncher (700/100)
+7 |   |   |   | Y |   |   |   |
+6 |   |   |   |   |   |   |   |
+5 |   |   |   |   |   |   |   |
+4 |   |   |   |   |   |   |   |
+3 |   |   |   |   |   |   |   |
+2 |   |   |   N   N   |   |   |
+1 |   |   |   |*X |   |   |   |
+    A   B   C   D   E   F   G
+<no unit>
+Player places Conspiratorial Convert on D2.
+7 |   |   |   | Y |   |   |   |
+6 |   |   |   |   |   |   |   |
+5 |   |   |   |   |   |   |   |
+4 |   |   |   |   |   |   |   |
+3 |   |   |   |   |   |   |   |
+2 |   |   |   N*x N   |   |   |
+1 |   |   |   |*X |   |   |   |
+    A   B   C   D   E   F   G
+Conspiratorial Convert (Team Player)
+ATK: 150
+DEF: 400
+It is Enemy's turn!
+Farmer King moves to D7.
+7 |   |   |   N Y N   |   |   |
+6 |   |   |   |   |   |   |   |
+5 |   |   |   |   |   |   |   |
+4 |   |   |   |   |   |   |   |
+3 |   |   |   |   |   |   |   |
+2 |   |   |   | x |   |   |   |
+1 |   |   |   | X |   |   |   |
+    A   B   C   D   E   F   G
+Enemy's Farmer King
+Enemy places Synchronized Soles on C6.
+7 |   |   |   | Y |   |   |   |
+6 |   |   N*y N   |   |   |   |
+5 |   |   |   |   |   |   |   |
+4 |   |   |   |   |   |   |   |
+3 |   |   |   |   |   |   |   |
+2 |   |   |   | x |   |   |   |
+1 |   |   |   | X |   |   |   |
+    A   B   C   D   E   F   G
+Synchronized Soles (Team Enemy)
+ATK: 600
+DEF: 300
+Synchronized Soles moves to D6.
+7 |   |   |   | Y |   |   |   |
+6 |   |   |   N y N   |   |   |
+5 |   |   |   |   |   |   |   |
+4 |   |   |   |   |   |   |   |
+3 |   |   |   |   |   |   |   |
+2 |   |   |   | x |   |   |   |
+1 |   |   |   | X |   |   |   |
+    A   B   C   D   E   F   G
+Synchronized Soles (Team Enemy)
+ATK: 600
+DEF: 300
+It is Player's turn!
+[1] Symbiotic Souls (300/600)
+[2] Prime Partner (300/50)
+[3] Conditional Clown (300/500)
+[4] Powerful Puncher (700/100)
+[5] Synchronized Soles (600/300)
+7 |   |   |   | Y |   |   |   |
+6 |   |   |   | y |   |   |   |
+5 |   |   |   |   |   |   |   |
+4 |   |   |   |   |   |   |   |
+3 |   |   |   |   |   |   |   |
+2 |   |   |   N*x N   |   |   |
+1 |   |   |   |*X |   |   |   |
+    A   B   C   D   E   F   G
+Conspiratorial Convert (Team Player)
+ATK: 150
+DEF: 400
+Player places Conditional Clown on D2.
+Conditional Clown and Conspiratorial Convert on D2 join forces!
+Success!
+7 |   |   |   | Y |   |   |   |
+6 |   |   |   | y |   |   |   |
+5 |   |   |   |   |   |   |   |
+4 |   |   |   |   |   |   |   |
+3 |   |   |   |   |   |   |   |
+2 |   |   |   N*x N   |   |   |
+1 |   |   |   |*X |   |   |   |
+    A   B   C   D   E   F   G
+Conspiratorial Conditional Convert (Team Player)
+ATK: 300
+DEF: 750
+It is Enemy's turn!
+Farmer King moves to D7.
+7 |   |   |   N Y N   |   |   |
+6 |   |   |   |*y |   |   |   |
+5 |   |   |   |   |   |   |   |
+4 |   |   |   |   |   |   |   |
+3 |   |   |   |   |   |   |   |
+2 |   |   |   | x |   |   |   |
+1 |   |   |   | X |   |   |   |
+    A   B   C   D   E   F   G
+Enemy's Farmer King
+Enemy places Synchronized Soles on D6.
+Synchronized Soles and Synchronized Soles on D6 join forces!
+Union failed. Synchronized Soles was eliminated.
+7 |   |   |   | Y |   |   |   |
+6 |   |   |   N*y N   |   |   |
+5 |   |   |   |   |   |   |   |
+4 |   |   |   |   |   |   |   |
+3 |   |   |   |   |   |   |   |
+2 |   |   |   | x |   |   |   |
+1 |   |   |   | X |   |   |   |
+    A   B   C   D   E   F   G
+Synchronized Soles (Team Enemy)
+ATK: 600
+DEF: 300
+Synchronized Soles moves to C6.
+7 |   |   |   | Y |   |   |   |
+6 |   |   N y N   |   |   |   |
+5 |   |   |   |   |   |   |   |
+4 |   |   |   |   |   |   |   |
+3 |   |   |   |   |   |   |   |
+2 |   |   |   | x |   |   |   |
+1 |   |   |   | X |   |   |   |
+    A   B   C   D   E   F   G
+Synchronized Soles (Team Enemy)
+ATK: 600
+DEF: 300
+It is Player's turn!

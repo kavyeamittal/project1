@@ -124,13 +124,19 @@ public class MoveHandler {
         if (king.owner() == currentPlayer) {
             throw new GameException("ERROR: Cannot move to your own Farmer King.");
         }
+        System.out.println(attacker.getUnit().getDisplayName()
+                + " (" + attacker.getUnit().getAttack() + "/" + attacker.getUnit().getDefence()
+                + ") attacks Farmer King on " + pos + "!");
+        if (!attacker.isFlipped()) {
+            attacker.flip();
+            System.out.println(attacker.getUnit().getDisplayName()
+                    + " (" + attacker.getUnit().getAttack() + "/" + attacker.getUnit().getDefence()
+                    + ") was flipped on " + selectedPos + "!");
+        }
         int damage = attacker.getUnit().getAttack();
         king.owner().loseLife(damage);
-        System.out.println(attacker.getUnit().getDisplayName() + " moves to " + pos + ".");
         System.out.println(waitingPlayer.getName() + " takes " + damage + " damage!");
         attacker.markMoved();
-        board.remove(selectedPos);
-        selectedPos = null;
     }
 
     private void handleMerge(UnitOnBoard attacker, UnitOnBoard defender, Position pos) {

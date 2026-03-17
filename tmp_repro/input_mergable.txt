@@ -1,0 +1,8 @@
+hand
+select D2
+place 1
+yield
+hand
+select D2
+place 3
+yield
