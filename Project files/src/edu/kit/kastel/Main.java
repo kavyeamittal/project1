@@ -25,14 +25,14 @@ public final class Main {
      */
     public static void main(String[] args) {
         ConfigManager configManager = new ConfigManager();
-        configManager.configure(args);
-        Game game = new Game(configManager.getConfig());
         try {
+            configManager.configure(args);
+            Game game = new Game(configManager.getConfig());
             game.initialize();
+            new CommandLoop().run(game);
         } catch (GameException e) {
             System.out.println(e.getMessage());
-            return;
         }
-        new CommandLoop().run(game);
+
     }
 }

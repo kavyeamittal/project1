@@ -113,7 +113,7 @@ public class RandomHelper {
 
     private List<Position> orderDirectional(List<Position> positions, Position center) {
         List<Position> ordered = new ArrayList<>();
-        int[][] directional = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+        int[][] directional = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}, {0, 0}};
         for (int[] dir : directional) {
             Position p = Position.of(center.column() + dir[0], center.row() + dir[1]);
             if (positions.contains(p)) {

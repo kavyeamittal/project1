@@ -1,6 +1,7 @@
 package edu.kit.kastel.io;
 
 import edu.kit.kastel.config.Args;
+import edu.kit.kastel.exceptions.GameException;
 
 import java.nio.file.Path;
 import java.util.HashMap;
@@ -12,7 +13,8 @@ import java.util.Map;
  * @author uwsfc
  */
 public final class ArgsParser {
-
+    private static final java.util.Set<String> VALID_KEYS = java.util.Set.of("seed", "board", "units", "deck",
+            "deck1", "deck2", "team1", "team2", "verbosity");
     /**
      * Empty constructor to initialize the class.
      */
@@ -25,11 +27,15 @@ public final class ArgsParser {
      *
      * @param args represents the program arguments.
      * @return the record of the Initial Arguments given by the game.
-     * @throws IllegalArgumentException for invalid arguments.
+     * @throws GameException for invalid arguments.
      */
-    public static Args parse(String[] args) {
+    public static Args parse(String[] args) throws GameException {
         Map<String, String> map = toMap(args);
-
+        for (String key : map.keySet()) {
+            if (!VALID_KEYS.contains(key)) {
+                throw new GameException("ERROR: Unknown Key: " + key);
+            }
+        }
         long seed = parseSeed(map);
         Path unitsFile = getPath(map, "units");
 
@@ -44,39 +50,31 @@ public final class ArgsParser {
             boardSymbolsFile = null;
         }
         String verbosity = map.getOrDefault("verbosity", "all");
-        if (!verbosity.equals("all") && !verbosity.equals("compact")) {
-            throw new IllegalArgumentException("ERROR: Invalid verbosity value: " + verbosity);
-        }
+
         String team1 = map.get("team1");
         String team2 = map.get("team2");
-        if (team1 != null && team1.length() > 14) {
-            throw new IllegalArgumentException("ERROR: Team 1 name too long (max 14 chars).");
-        }
-        if (team2 != null && team2.length() > 14) {
-            throw new IllegalArgumentException("ERROR: Team 2 name too long (max 14 chars).");
-        }
 
         return new Args(seed, boardSymbolsFile, unitsFile, deck1, deck2, verbosity, team1, team2);
     }
 
-    private static Map<String, String> toMap(String[] args) {
+    private static Map<String, String> toMap(String[] args) throws GameException {
         Map<String, String> map = new HashMap<>();
 
         for (String arg : args) {
             int equal = arg.indexOf("=");
             if (equal <= 0 || equal == arg.length() - 1) {
-                throw new IllegalArgumentException("ERROR: Invalid Argument, = used improperly.");
+                throw new GameException("ERROR: Invalid Argument, = used improperly.");
             }
 
             String key = arg.substring(0, equal).trim();
             String value = arg.substring(equal + 1).trim();
 
             if (key.isEmpty() || value.isEmpty()) {
-                throw new IllegalArgumentException("ERROR: Invalid argument, key or value are empty!");
+                throw new GameException("ERROR: Invalid argument, key or value are empty!");
             }
 
             if (map.containsKey(key)) {
-                throw new IllegalArgumentException("ERROR: Invalid argument, key already used!");
+                throw new GameException("ERROR: Invalid argument, key already used!");
             }
 
             map.put(key, value);
@@ -85,30 +83,34 @@ public final class ArgsParser {
         return map;
     }
 
-    private static long parseSeed(Map<String, String> map) {
+    private static long parseSeed(Map<String, String> map) throws GameException {
         String fetchSeed = map.get("seed");
         if (fetchSeed == null) {
-            throw new IllegalArgumentException("ERROR: Missing argument 'seed'.");
+            throw new GameException("ERROR: Missing argument 'seed'.");
         }
-        return Long.parseLong(fetchSeed);
+        try {
+            return Long.parseLong(fetchSeed);
+        } catch (NumberFormatException e) {
+            throw new GameException("ERROR: Invalid seed.");
+        }
     }
 
-    private static Path getPath(Map<String, String> map, String key) {
+    private static Path getPath(Map<String, String> map, String key) throws GameException {
         String fetchKey = map.get(key);
         if (fetchKey == null) {
-            throw new IllegalArgumentException("ERROR: Missing argument.");
+            throw new GameException("ERROR: Missing argument.");
         }
         return Path.of(fetchKey);
     }
 
-    private static DeckFiles parseDecks(Map<String, String> map) {
+    private static DeckFiles parseDecks(Map<String, String> map) throws GameException {
         boolean hasDeck = map.containsKey("deck");
         boolean hasDeck1 = map.containsKey("deck1");
         boolean hasDeck2 = map.containsKey("deck2");
 
         if (hasDeck) {
             if (hasDeck1 || hasDeck2) {
-                throw new IllegalArgumentException("ERROR: Use either ‘deck', or 'deck1 and deck2'");
+                throw new GameException("ERROR: Use either ‘deck', or 'deck1 and deck2'");
             }
             Path deckPath = getPath(map, "deck");
             return new DeckFiles(deckPath, deckPath);
@@ -116,14 +118,14 @@ public final class ArgsParser {
 
         if (hasDeck1 || hasDeck2) {
             if (!(hasDeck1 && hasDeck2)) {
-                throw new IllegalArgumentException("ERROR: If you use 'deck1' or 'deck2', you must provide both.");
+                throw new GameException("ERROR: If you use 'deck1' or 'deck2', you must provide both.");
             }
 
             Path deckPath1 = getPath(map, "deck1");
             Path deckPath2 = getPath(map, "deck2");
             return new DeckFiles(deckPath1, deckPath2);
         }
-        throw new IllegalArgumentException("ERROR: Missing required argument 'deck' (or 'deck1' and 'deck2').");
+        throw new GameException("ERROR: Missing required argument 'deck' (or 'deck1' and 'deck2').");
     }
 
     private record DeckFiles(Path deckFileTeam1, Path deckFileTeam2) {

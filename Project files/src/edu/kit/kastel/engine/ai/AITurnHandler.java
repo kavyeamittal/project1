@@ -108,20 +108,18 @@ public class AITurnHandler {
             int[][] scores = new int[unitPositions.length][6]; // (oben, rechts, unten, links, blockieren, en place)
             int highestScoreSum = Integer.MIN_VALUE;
             int highestScoreUnitIndex = -1;
-
             for (int i = 0; i < unitPositions.length; i++) {
                 scores[i] = ai.getMoveScores(unitPositions[i]);
                 int sum = 0;
                 for (int score : scores[i]) {
-                    sum += score;
+                    sum += Math.max(0, score);
                 }
                 if (sum > highestScoreSum) {
                     highestScoreUnitIndex = i;
                     highestScoreSum = sum;
                 }
             }
-
-            if (highestScoreUnitIndex == -1) {
+            if (highestScoreUnitIndex == -1 || highestScoreSum == 0) {
                 return;
             }
             Position unitPos = unitPositions[highestScoreUnitIndex];
@@ -135,6 +133,7 @@ public class AITurnHandler {
             printBoard();
             handleShow(game);
         }
+
     }
 
     private void discardAiUnit(AILogic ai) {

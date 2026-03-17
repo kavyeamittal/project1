@@ -18,6 +18,8 @@ import java.util.Random;
  * @author uwsfc
  */
 public class AILogic {
+    private static final int MOVE_ENPLACE_INDEX = 5;
+    private static final int MOVE_BLOCK_INDEX = 4;
     private final Board board;
     private final Player aiPlayer;
     private final Player humanPlayer;
@@ -52,11 +54,19 @@ public class AILogic {
         for (int[] dir : directions) {
             int col = kingPos.column() + dir[0];
             int row = kingPos.row() + dir[1];
-            if (col < 0 || col > 6 || row < 0 || row > 6) {
+            if (positionOutOfBounds(row, col)) {
                 continue;
             }
             Position candidate = Position.of(col, row);
             Occupant occ = board.getPos(candidate);
+            if (dir[0] != 0 || dir[1] != 0) {
+                if (occ instanceof UnitOnBoard unitOnBoard && unitOnBoard.getOwner() == aiPlayer) {
+                    continue;
+                }
+                if (occ instanceof FarmerKing king && king.owner() == aiPlayer) {
+                    continue;
+                }
+            }
             if (occ instanceof UnitOnBoard u && u.getOwner() != aiPlayer) {
                 continue;
             }
@@ -107,7 +117,7 @@ public class AILogic {
             if (occ instanceof UnitOnBoard unitOnBoard && unitOnBoard.getOwner() != aiPlayer) {
                 continue;
             }
-            if (occ instanceof FarmerKing king && king.owner() != aiPlayer) {
+            if (occ instanceof FarmerKing king) {
                 continue;
             }
             int steps = stepsToPosition(candidate, enemyKingPos);
@@ -163,23 +173,14 @@ public class AILogic {
         return rnd.reverseWeightedRandomIndex(weights);
     }
 
-    /**
-     * Scores a potential move to the given target position.
-     *
-     * @param unit         the moving unit.
-     * @param from         the unit's current position.
-     * @param to           the target position.
-     * @param enemyKingPos the enemy king's position.
-     * @return the score for this move.
-     */
-    private int scoreMove(UnitOnBoard unit, Position from, Position to, Position enemyKingPos) {
+    private int scoreMove(UnitOnBoard unit, Position to, Position enemyKingPos) {
         Occupant target = board.getPos(to);
         int atkA = unit.getUnit().getAttack();
         int defA = unit.getUnit().getDefence();
         if (target == null) {
             int steps = stepsToPosition(to, enemyKingPos);
             int enemies = countSurrounding4(to, humanPlayer);
-            return 10 * steps - enemies;
+            return (10 * steps) - enemies;
         }
         if (target instanceof FarmerKing king) {
             return king.owner() == aiPlayer ? -defA : atkA;
@@ -190,20 +191,11 @@ public class AILogic {
         return 0;
     }
 
-    /**
-     * Scores a move against a defending unit.
-     *
-     * @param unit     the attacking unit.
-     * @param defender the defending unit.
-     * @param atkA     attacker's ATK value.
-     * @param defA     attacker's DEF value.
-     * @return the score.
-     */
     private int scoreAgainstDefender(UnitOnBoard unit, UnitOnBoard defender, int atkA, int defA) {
         if (defender.getOwner() == aiPlayer) {
             Unit merged = Unit.tryMerge(unit.getUnit(), defender.getUnit());
             if (merged != null) {
-                return merged.getAttack() + merged.getDefence() - atkA - defA;
+                return merged.getAttack() + merged.getDefence() - atkA - defender.getUnit().getDefence();
             }
             return -defender.getUnit().getAttack() - defender.getUnit().getDefence();
         }
@@ -216,38 +208,18 @@ public class AILogic {
         return 2 * (atkA - defender.getUnit().getAttack());
     }
 
-    /**
-     * Scores initiating a blockade for the given unit.
-     *
-     * @param unit the unit considering a blockade.
-     * @param pos  the unit's position.
-     * @return the blockade score.
-     */
     private int scoreBlock(UnitOnBoard unit, Position pos) {
         int defA = unit.getUnit().getDefence();
         int maxEnemyAtk = getMaxEnemyAtkInLine(pos);
         return Math.max(1, (defA - maxEnemyAtk) / 100);
     }
 
-    /**
-     * Scores an en-place move for the given unit.
-     *
-     * @param unit the unit considering en-place.
-     * @param pos  the unit's position.
-     * @return the en-place score.
-     */
     private int scoreEnPlace(UnitOnBoard unit, Position pos) {
         int atkA = unit.getUnit().getAttack();
         int maxEnemyAtk = getMaxEnemyAtkInLine(pos);
         return Math.max(0, (atkA - maxEnemyAtk) / 100);
     }
 
-    /**
-     * Method to return the maximum ATK value of enemy units in straight lines from the position.
-     *
-     * @param pos the position to check from.
-     * @return the maximum enemy ATK value in line.
-     */
     private int getMaxEnemyAtkInLine(Position pos) {
         int max = 0;
         int[][] dirs = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
@@ -266,12 +238,6 @@ public class AILogic {
         return max;
     }
 
-    /**
-     * Method to return all fields adjacent (including diagonally) to the given position.
-     *
-     * @param kingPos the center position.
-     * @return list of adjacent positions within board bounds.
-     */
     private List<Position> getAdjacentFields(Position kingPos) {
         List<Position> result = new ArrayList<>();
         for (int dc = -1; dc <= 1; dc++) {
@@ -281,21 +247,15 @@ public class AILogic {
                 }
                 int col = kingPos.column() + dc;
                 int row = kingPos.row() + dr;
-                if (col >= 0 && col <= 6 && row >= 0 && row <= 6) {
-                    result.add(Position.of(col, row));
+                if (positionOutOfBounds(row, col)) {
+                    continue;
                 }
+                result.add(Position.of(col, row));
             }
         }
         return result;
     }
 
-    /**
-     * Returns the Manhattan distance between two positions.
-     *
-     * @param from the starting position.
-     * @param to   the target position.
-     * @return the Manhattan distance, or 0 if target is null.
-     */
     private int stepsToPosition(Position from, Position to) {
         if (to == null) {
             return 0;
@@ -303,13 +263,6 @@ public class AILogic {
         return Math.abs(from.column() - to.column()) + Math.abs(from.row() - to.row());
     }
 
-    /**
-     * Counts occupants belonging to the given player in the four orthogonal directions.
-     *
-     * @param pos   the center position.
-     * @param owner the player to count for.
-     * @return the count of surrounding occupants.
-     */
     private int countSurrounding4(Position pos, Player owner) {
         int count = 0;
         int[][] dirs = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
@@ -339,7 +292,7 @@ public class AILogic {
     }
 
     private boolean belongsToPlayer(Position position, Player player, boolean includeFarmerKing) {
-        if (position.column() < 0 || position.column() > 6 || position.row() < 0 || position.row() > 6) {
+        if (positionOutOfBounds(position.row(), position.column())) {
             return false;
         }
         Occupant occ = board.getPos(position);
@@ -354,7 +307,6 @@ public class AILogic {
      * @return array of six scores, with 0 indicating an invalid move.
      */
     public int[] getMoveScores(Position unitPosition) {
-        // Order: (oben, rechts, unten, links, blockieren, Bewegung en place)
         Occupant occ = board.getPos(unitPosition);
         if (!(occ instanceof UnitOnBoard unit)) {
             return new int[6];
@@ -366,12 +318,12 @@ public class AILogic {
         for (int i = 0; i < 4; i++) {
             int col = unitPosition.column() + dirCols[i];
             int row = unitPosition.row() + dirRows[i];
-            if (col < 0 || col > 6 || row < 0 || row > 6) {
+            if (positionOutOfBounds(row, col)) {
                 scores[i] = 0;
                 continue;
             }
             Position target = Position.of(col, row);
-            scores[i] = scoreMove(unit, unitPosition, target, enemyKingPos);
+            scores[i] = scoreMove(unit, target, enemyKingPos);
         }
         scores[4] = scoreBlock(unit, unitPosition);
         scores[5] = scoreEnPlace(unit, unitPosition);
@@ -387,7 +339,7 @@ public class AILogic {
      */
     public Position chooseUnitMove(int[] scores, Position unitPosition) {
         boolean hasPositiveMovement = false;
-        for (int i : new int[]{0, 1, 2, 3, 5}) {
+        for (int i : new int[]{0, 1, 2, 3, 4, 5}) {
             if (scores[i] > 0) {
                 hasPositiveMovement = true;
                 break;
@@ -397,14 +349,18 @@ public class AILogic {
             return null;
         }
         int chosen = rnd.weightedRandomIndex(scores);
-        if (chosen == 4) {
+        if (chosen == MOVE_BLOCK_INDEX) {
             return null;
         }
-        if (chosen == 5) {
+        if (chosen == MOVE_ENPLACE_INDEX) {
             return unitPosition;
         }
         int[] dirCols = {0, 1, 0, -1};
         int[] dirRows = {1, 0, -1, 0};
         return Position.of(unitPosition.column() + dirCols[chosen], unitPosition.row() + dirRows[chosen]);
+    }
+
+    private boolean positionOutOfBounds(int row, int col) {
+        return (col < 0 || col > 6 || row < 0 || row > 6);
     }
 }

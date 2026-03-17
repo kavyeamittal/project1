@@ -1,0 +1,8 @@
+select D1
+move D2
+select D1
+place 1
+yield
+select E1
+place 1
+yield

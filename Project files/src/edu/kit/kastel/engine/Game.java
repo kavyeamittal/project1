@@ -35,6 +35,7 @@ public class Game {
     private Player waitingPlayer;
     private boolean hasPlacedThisTurn;
     private boolean gameOver = false;
+    private boolean isFirstTurn = true;
 
     /**
      * Creates a new Game from the given configuration.
@@ -56,7 +57,7 @@ public class Game {
     public void initialize() throws GameException {
         player.getDeck().shuffle(rnd);
         enemy.getDeck().shuffle(rnd);
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 5; i++) {
             Unit playerUnit = player.getDeck().drawCard();
             Unit enemyUnit = enemy.getDeck().drawCard();
             if (playerUnit == null || enemyUnit == null) {
@@ -70,7 +71,6 @@ public class Game {
         board.place(Position.parse("D7"), new FarmerKing(enemy));
         currentPlayer = player;
         waitingPlayer = enemy;
-        player.getHand().add(player.getDeck().drawCard());
     }
 
     /**
@@ -172,6 +172,12 @@ public class Game {
         }
         MoveHandler mover = new MoveHandler(board, currentPlayer, waitingPlayer, selectedPos);
         if (occupant instanceof FarmerKing king) {
+            if (king.owner() != currentPlayer) {
+                throw new GameException("ERROR: You can only move your own King.");
+            }
+            if (king.hasMovedThisTurn()) {
+                throw new GameException("ERROR: Farmer King has already moved.");
+            }
             mover.handleKingMove(king, pos);
         } else if (occupant instanceof UnitOnBoard unitToMove) {
             if (unitToMove.getOwner() != currentPlayer) {
@@ -243,15 +249,19 @@ public class Game {
         selectedPos = null;
         hasPlacedThisTurn = false;
         board.resetMovedFlags(currentPlayer);
-        Unit drawn = currentPlayer.getDeck().drawCard();
-        if (drawn == null) {
-            System.out.println("It is " + currentPlayer.getName() + "'s turn!");
-            System.out.println(currentPlayer.getName() + " has no cards left in the deck!");
-            System.out.println(waitingPlayer.getName() + " wins!");
-            gameOver = true;
-            return;
+        if (isFirstTurn) {
+            isFirstTurn = false;
+        } else {
+            Unit drawn = currentPlayer.getDeck().drawCard();
+            if (drawn == null) {
+                System.out.println("It is " + currentPlayer.getName() + "'s turn!");
+                System.out.println(currentPlayer.getName() + " has no cards left in the deck!");
+                System.out.println(waitingPlayer.getName() + " wins!");
+                gameOver = true;
+                return;
+            }
+            currentPlayer.getHand().add(drawn);
         }
-        currentPlayer.getHand().add(drawn);
         System.out.println("It is " + currentPlayer.getName() + "'s turn!");
         if (currentPlayer instanceof AIPlayer) {
             new AITurnHandler(this, board, currentPlayer, waitingPlayer, rnd, verbose).runAiTurn();
@@ -284,7 +294,7 @@ public class Game {
         if (unitOnBoard.isBlocked() && unitOnBoard.isBlockedThisTurn()) {
             throw new GameException("ERROR: Unit is already blocking this turn.");
         }
-        unitOnBoard.toggleBlocked();
+        unitOnBoard.setBlocked(true);
         unitOnBoard.setBlockedThisTurn(true);
         unitOnBoard.markMoved();
     }
@@ -314,9 +324,6 @@ public class Game {
         unitOnBoard.flip();
     }
 
-    /**
-     * Method to check if either player's life points have dropped to zero and sets game over.
-     */
     private void checkWinCondition() {
         if (currentPlayer.getLife() <= 0) {
             System.out.println(currentPlayer.getName() + "'s life points dropped to 0!");
